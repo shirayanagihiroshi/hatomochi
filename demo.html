@@ -1,12 +1,398 @@
 <html>
-  <head>
-    <script type="text/javascript"></script>
-    <title>
-      demo
-    </title>
-  <head>
-  <body>
-    this is demo
-    this is demo too
-  </body>
+<head>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({ 
+	  TeX: {  extensions: ["color.js"] }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_CHTML"></script>
+	<title>定積分にチャレンジ</title> 
+	<script language="javascript" type="text/javascript">
+	//こういうグローバルな変数を安易に増やすと死ぬ
+	var level = 0;
+	var p;
+	var ans;
+
+	function OnButtonClick() {
+		var target_prob = document.getElementById("prob");
+		var target_ans_bunshi = Number(document.getElementById("bunshi").value);
+		var yattane = 2;
+		var target_ans_bunbo;
+
+		//採点の部
+		//答えが整数のとき
+		if (ans.denominator == 1) {
+			if (target_ans_bunshi == ans.numerator ) {
+				yattane = 1;
+				level = level + 1;
+			}
+		//答えが整数値のとき
+		} else {
+			target_ans_bunbo = Number(document.getElementById("bunbo").value);
+
+			if (target_ans_bunshi == ans.numerator && target_ans_bunbo == ans.denominator) {
+				yattane = 1;
+				level = level + 1;
+			}
+		}
+
+		//次の問題の作成の部
+		p = make_problem();
+		ans = my_integral(p);
+
+		show_level(level, yattane)
+		target_prob.innerHTML = make_integral_latex_string(p);
+		prepare_ans(ans);
+
+//		console.log(ans.numerator);
+//		console.log(ans.denominator);
+
+		//mathjaxによる描画を要求する
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub,target_prob]);
+	}
+
+	//分数の足し算
+	function my_add_fraction(x, y) {
+		const divisor = my_EuclidsAlgorithm(x.denominator, y.denominator)
+		const xbaibun = y.denominator / divisor;
+		const ybaibun = x.denominator / divisor;
+		var z = {numerator : (x.numerator * xbaibun) + (y.numerator * ybaibun),
+			denominator : (x.denominator * xbaibun)};
+		return my_about(z);
+	}
+
+	//分数の掛け算
+	function my_multiple_fraction(x, y) {
+		var z = {numerator : (x.numerator * y.numerator),
+			denominator : (x.denominator * y.denominator)};
+		return my_about(z);
+	}
+
+	//約分
+	//分子は正の数でも負の数でもよい。分母は正の数のみ許容する。
+	function my_about(x) {
+		var minus = 0;
+
+		//分子が0なら何もしない
+		if (x.numerator == 0) {
+			return x;
+		}
+
+		//分子が負の数なら一旦正の数にしておいて、最後に戻す
+		if (x.numerator < 0) {
+			x.numerator = x.numerator * (-1);
+			minus = 1;
+		}
+
+		const divisor = my_EuclidsAlgorithm(x.numerator, x.denominator)
+
+		x.numerator = x.numerator/divisor;
+		x.denominator = x.denominator/divisor;
+
+		if (minus == 1) {
+			x.numerator = x.numerator * (-1);
+		}
+		return x;
+	}
+
+	//ユークリッドの互除法によってaとbの最大公約数を求める
+	function my_EuclidsAlgorithm(a, b) {
+		if (b > a) {
+			//aとbを入れ替える
+			const temp = a;
+			a = b;
+			b= temp;
+		}
+
+		const remainder = a % b;
+
+		if (remainder == 0) {
+			return b;
+		} else {
+			return my_EuclidsAlgorithm(b, remainder);
+		}
+
+	}
+
+	//コンビネーション
+	function my_conbnation(n,r) {
+		return (my_factorial(n) / (my_factorial(r) * my_factorial(n-r)));
+	}
+
+	//階乗
+	function my_factorial(n) {
+		if (n==0) {
+			return 1;
+		}
+		return (n * my_factorial(n-1));
+	}
+
+	//累乗(aのb乗)
+	function my_exponential(a,b) {
+		if (b==0) {
+			return 1;
+		}
+		return (a*my_exponential(a, (b-1)));
+	}
+
+	//minからmaxまでの整数からランダムに選んで出力する。
+	function get_random_Integer(min, max) {
+		var range = (max + 1) - min;
+		//お勉強めも。Math.randomは0<=x<1の中からランダムな値を返す。
+		//が、ガチなランダムではないでセキュリティが求められるものには使えない。
+		//Math.flooraは小数点以下の切り捨て
+		var rand = Math.floor(Math.random() * range) + min;
+		return rand;
+	}
+
+	//多項式の定積分の計算用
+	//xのn乗をaからbまで積分した値を求める。
+	function my_integral_inner(a, b, n) {
+		var aruijyou = my_exponential(a, (n + 1));
+		var bruijyou = my_exponential(b, (n + 1));
+
+		var z = {numerator : (bruijyou - aruijyou),
+			denominator : (n + 1)};
+		return my_about(z);
+	}
+
+	//分数をlatex表現にする。
+	//第2引数は整数1、-1の場合に表示を省略するかどうか
+	//omitte:0 省略しない
+	//omitte:1 省略する
+	function my_frac_to_latex_string(a, omitte) {
+		var latex = "";
+
+		//0はスルー
+		if (a.numerator == 0) {
+			return latex;
+		}
+		//分母が1なら整数表示
+		if (a.denominator == 1) {
+			if (a.numerator == 1) {
+				if (omitte == 0) {
+					latex += String(a.numerator);
+				} else {
+					//このケースは表示を省略
+				}
+			} else if (a.numerator == -1) {
+				if (omitte == 0) {
+					latex += String(a.numerator);
+				} else {
+					latex += "-";
+				}
+			} else {
+				latex += String(a.numerator);
+			}
+			return latex;
+		}
+		//マイナスの記号は分数の前に出す
+		if (a.numerator < 0) {
+			latex += "-";
+		}
+		//分母が1でなければ分数表示
+		latex += "\\frac{";
+		if (a.numerator < 0) {
+			latex += String(a.numerator * (-1));
+		} else {
+			latex += String(a.numerator);
+		}
+		latex += "}{";
+		latex += String(a.denominator);
+		latex += "}";
+		return latex;
+	}
+
+	//ax^nをlatex表現にする。
+	function my_kou_to_latex_string(a, n) {
+		var latex = "";
+
+		if (a.numerator == 0) {
+			return latex;
+		}
+
+		if (n > 1) {
+			latex += my_frac_to_latex_string(a, 1);
+			latex += "x^";
+			latex += String(n);
+		} else if (n == 1) {
+			latex += my_frac_to_latex_string(a, 1);
+			latex += "x";
+		} else if (n == 0) {
+			latex += my_frac_to_latex_string(a, 0);
+		}
+		return latex;
+	}
+
+	//積分の式をlatex表現にする。
+	function make_integral_latex_string(prob) {
+		var prev_kou_exist = 0;
+		var target="\\(";
+
+		target += "\\int^{";
+		target += String(prob.jyoutan);
+		target += "}_{";
+		target += String(prob.katan);
+		target += "}(";
+		if (prob.keisuu_3ji.numerator != 0) {
+			prev_kou_exist = 1;
+		}
+		target += my_kou_to_latex_string(prob.keisuu_3ji,3);
+		if (prob.keisuu_2ji.numerator != 0) {
+			if (prob.keisuu_2ji.numerator > 0 && prev_kou_exist == 1) {
+				target += "+";
+			}
+			prev_kou_exist = 1;
+		}
+		target += my_kou_to_latex_string(prob.keisuu_2ji,2);
+		if (prob.keisuu_1ji.numerator != 0) {
+			if (prob.keisuu_1ji.numerator > 0 && prev_kou_exist == 1) {
+				target += "+";
+			}
+			prev_kou_exist = 1;
+		}
+		target += my_kou_to_latex_string(prob.keisuu_1ji,1);
+		if (prob.keisuu_0ji.numerator != 0) {
+			if (prob.keisuu_0ji.numerator > 0 && prev_kou_exist == 1) {
+				target += "+";
+			}
+			prev_kou_exist = 1;
+		}
+		target += my_kou_to_latex_string(prob.keisuu_0ji,0);
+		target += ")dx\\)";
+		return target;
+	}
+
+	//入力フォームを3次式用へ変更
+	function to3ji(n) {
+		var target = document.getElementById("input");
+		target.innerHTML = "\\( ( \\)";
+		target.innerHTML += "<input type=\"text\" id=\"3jyou_keisuu\" value=\"\" size=\"2\" maxlength=\"2\"/>";
+		target.innerHTML += "\\( x^3 + \\)";
+		target.innerHTML += "<input type=\"text\" id=\"2jyou_keisuu\" value=\"\" size=\"2\" maxlength=\"2\"/>";
+		target.innerHTML += "\\( x^2 + \\)";
+		target.innerHTML += "<input type=\"text\" id=\"1jyou_keisuu\" value=\"\" size=\"2\" maxlength=\"2\"/>";
+		target.innerHTML += "\\( x + \\)";
+		target.innerHTML += "<input type=\"text\" id=\"teisuu\" value=\"\" size=\"2\" maxlength=\"2\"/>";
+		//mathjaxによる描画を要求する
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub,target]);
+	}
+
+	//レベル表示
+	//comment 先頭に一言つける。
+	//0:つけない
+	//1:やったね！
+	//2:ざんねん！
+	function show_level(n, comment) {
+		var target = document.getElementById("level");
+
+		switch (comment) {
+			case 1:
+				target.innerHTML = "やったね！";
+				break;
+			case 2:
+				target.innerHTML = "ざんねん！";
+				break;
+			default:
+				target.innerHTML = "";
+				break;
+		}
+
+		target.innerHTML += "いま君は『";
+		switch (n) {
+			case 0:
+				target.innerHTML += "きんぎょ";
+				break;
+			case 1:
+				target.innerHTML += "ひよこ";
+				break;
+			case 2:
+				target.innerHTML += "人間";
+				break;
+			case 3:
+				target.innerHTML += "上級国民";
+				break;
+			default:
+				target.innerHTML += "神";
+				break;
+		}
+		target.innerHTML += "』レベルです。";
+	}
+
+	//多項式の定積分の計算用
+	function my_integral(p) {
+		var temp3ji, temp2ji, temp1ji, temp0ji, integral;
+
+		//ここで定積分の答えを計算する
+		temp3ji = my_multiple_fraction(p.keisuu_3ji, my_integral_inner(p.katan, p.jyoutan, 3));
+		temp2ji = my_multiple_fraction(p.keisuu_2ji, my_integral_inner(p.katan, p.jyoutan, 2));
+		temp1ji = my_multiple_fraction(p.keisuu_1ji, my_integral_inner(p.katan, p.jyoutan, 1));
+		temp0ji = my_multiple_fraction(p.keisuu_0ji, my_integral_inner(p.katan, p.jyoutan, 0));
+		integral = my_add_fraction(temp3ji, temp2ji);
+		integral = my_add_fraction(integral, temp1ji);
+		integral = my_add_fraction(integral, temp0ji);
+
+		return integral;
+	}
+
+	function make_problem() {
+		var k = get_random_Integer(-2, 2);
+		var prob = {keisuu_3ji : {numerator : get_random_Integer(-1, 2), denominator : 1},
+			    keisuu_2ji : {numerator : get_random_Integer(-1, 3), denominator : 1},
+			    keisuu_1ji : {numerator : get_random_Integer(-2, 3), denominator : 1},
+			    keisuu_0ji : {numerator : get_random_Integer(-4, 5), denominator : 1},
+			katan : k,
+			jyoutan : k + get_random_Integer(1, 3)};
+
+		return prob;
+	}
+
+	function prepare_ans(ans) {
+		var target = document.getElementById("answer");
+
+		if (ans.denominator == 1) {
+			target.innerHTML = "<input type=\"text\" id=\"bunshi\" value=\"\" size=\"4\" maxlength=\"4\"/>"
+		} else {
+			target.innerHTML = "<input type=\"text\" id=\"bunshi\" value=\"\" size=\"4\" maxlength=\"4\"/>"
+			target.innerHTML += "/";
+			target.innerHTML += "<input type=\"text\" id=\"bunbo\" value=\"\" size=\"4\" maxlength=\"4\"/>"
+			target.innerHTML += "　（左が分子で右が分母です。答えがマイナスの場合は分子を負の数にしてください）"
+		}
+	}
+
+	window.onload = function() {
+		var target = document.getElementById("prob");
+
+		p = make_problem();
+		ans = my_integral(p);
+
+		show_level(level, 0);
+		target.innerHTML = make_integral_latex_string(p);
+		prepare_ans(ans);
+
+//		console.log(ans.numerator);
+//		console.log(ans.denominator);
+
+		//mathjaxによる描画を要求する
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub,target]);
+	}
+
+</script>
+</head>
+<body>
+<h1>定積分にチャレンジ　～早く人間になりたい～</h1>
+<p id="level">
+</p>
+<p>
+	<span id="prob">
+	</span>
+	の値を求めなさい
+</p>
+<p id="answer">
+</p>
+<p>
+	<input type="button" value="答える" onclick="OnButtonClick();"/>
+</p>
+</body>
 </html>
+
