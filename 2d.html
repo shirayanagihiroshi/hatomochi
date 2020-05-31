@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+</head>
+<body>
+  <canvas id="main_canvas"></canvas>
+</body>
+
+<script>
+  //カンバスの取得
+  var canvas = document.getElementById('main_canvas');
+  var context = canvas.getContext('2d');
+  //四角形を塗りつぶす
+  context.fillRect(0,0,100,100);
+  //円を大体塗りつぶす
+  context.beginPath();
+  context.arc(150,50,50,0.0, Math.PI * 1.5);
+  context.closePath();
+  context.fill();
+</script>
+
+</html>
