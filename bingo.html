@@ -1,0 +1,149 @@
+<html>
+<head>
+  <meta charset="utf-8"/>
+</head>
+<body>
+  <p onclick="gamestart()"><ビンゴさくせいましーん。ここをクリックしてね。></p>
+  <canvas id="main_canvas" width="500" height="500"></canvas>
+</body>
+
+<script>
+  //カンバスの取得
+  var canvas = document.getElementById('main_canvas');
+  var context = canvas.getContext('2d');
+  var bingos = new Array(24);
+  var bingos_temp = new Array(5);
+  var bingo_i,timer_interval;
+
+  function gamestart() {
+    bingo_i = 0;
+    timer_interval = 30;
+    make_bingo();
+    show_frame();
+    show_numbers();
+  }
+
+  //ビンゴの生成
+  function make_bingo() {
+    var i;
+
+    make_random_no_duplication(bingos_temp, 1, 16);
+    for (i=0; i<5; i++) {
+      bingos[i] = bingos_temp[i];
+    }
+
+    make_random_no_duplication(bingos_temp, 16, 31);
+    for (i=0; i<5; i++) {
+      bingos[i+5] = bingos_temp[i];
+    }
+
+    make_random_no_duplication(bingos_temp, 31, 46);
+    for (i=0; i<5; i++) {
+      bingos[i+10] = bingos_temp[i];
+    }
+
+    make_random_no_duplication(bingos_temp, 46, 61);
+    for (i=0; i<5; i++) {
+      bingos[i+15] = bingos_temp[i];
+    }
+
+    make_random_no_duplication(bingos_temp, 61, 76);
+    for (i=0; i<5; i++) {
+      bingos[i+20] = bingos_temp[i];
+    }
+//    console.log(bingos);
+  }
+
+  function show_frame () {
+    var i;
+
+    context.clearRect(0,0,500,500);
+
+    //まず枠を書く
+    //縦線
+    for (i=0; i<6; i++) {
+      context.moveTo(10+(80*i),10);
+      context.lineTo(10+(80*i),10+(80*6));
+    }
+    //横線
+    for (i=0; i<7; i++) {
+      context.moveTo(10,10+(80*i));
+      context.lineTo(10+(80*5),10+(80*i));
+    }
+    context.stroke();
+
+    context.font = 'bold 60pt sans-serif'
+    context.lineWidth = 3;
+    //位置を微妙に調整した
+    context.strokeText('B', 20, 80);
+    context.strokeText('I', 108, 80);
+    context.strokeText('N', 178, 80);
+    context.strokeText('G', 258, 80);
+    context.strokeText('O', 338, 80);
+  }
+
+  function show_numbers() {
+    write_number((bingo_i%5),Math.floor(bingo_i/5),bingos[bingo_i]);
+    
+    bingo_i = bingo_i + 1;
+    timer_interval = timer_interval +4;
+    if (bingo_i < 25) {
+      setTimeout(show_numbers,timer_interval);
+    }
+  }
+
+  //行(gyou)と列(retsu)を指定して数値(n)を書く
+  //中央はnに関係なくfreeと書く
+  function write_number(gyou,retsu,n) {
+    var hosei = 0
+
+    if ((gyou == 2) && (retsu == 2)) {
+      context.font = 'bold 25pt sans-serif'
+      context.fillText("free", (80*retsu)+15, (80*(gyou+2))-17);
+    } else {
+      if (n < 10) {
+        hosei = 31;
+      } else {
+        hosei = 13;
+      }
+      context.font = 'bold 40pt sans-serif'
+      context.fillText(String(n), (80*retsu)+hosei, (80*(gyou+2))-9);
+    }
+  }
+
+  //m以上、n未満の数を返す
+  function getRandomInt(m, n) {
+    return Math.floor(Math.random() * (n - m)) + m;
+  }
+
+  //配列(lst)へm以上n未満の重複しないランダムな数値を詰める
+  function make_random_no_duplication(lst,m,n) {
+    var i,j,temp;
+
+    i = 0;
+
+    while (i<lst.length) {
+      lst[i] = 0;
+      i++;
+    }
+
+    i = 0;
+
+    loop:while (i<lst.length) {
+      temp = getRandomInt(m, n);
+
+      j = 0;
+      while (j < i) {
+        if (lst[j] == temp) {
+          continue loop;
+        }
+        j++;
+      }
+      lst[i] = temp;
+      i++;
+    }
+  }
+
+</script>
+
+</html>
