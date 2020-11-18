@@ -1,0 +1,69 @@
+<html>
+<head>
+	<meta http-equiv="content-type" charset="Shift_JIS">
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({ 
+	  TeX: {  extensions: ["color.js"] }
+	});
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_CHTML"></script>
+	<title>javascriptで数列</title> 
+	<script language="javascript" type="text/javascript">
+	function OnClick() {
+		var para = document.getElementById("para").value;
+		var target = document.getElementById("answer");
+
+		target.innerHTML = "\\(a_\{";
+		target.innerHTML += String(para);
+		target.innerHTML += "\}=";
+		target.innerHTML += String(an(para));
+		target.innerHTML += "\\)<br>";
+
+		//mathjaxによる描画を要求する
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub,target]);
+	}
+//解答例 1
+	function an (n) {
+		var i, ret;
+
+		//これはガード処理なので気にしない
+                if (n <= 0) {
+			return 0;
+		}
+
+		ret = 1;
+
+		//ここに注目
+		for (i=1; i < n; i++) {
+			ret += bn(i);
+		}
+		return ret;
+	}
+	function bn (n) {
+		return ( (2 * n) - 1 );
+	}
+//解答例 2
+/*
+	function an (n) {
+		return (n * n - (2 * n) + 2);
+	}
+*/
+	</script>
+</head>
+<body>
+<h1>javascriptで数列</h1>
+<p>
+	\(a_1 = 1, a_2, a_3, …, a_n \)に対して、この数列の階差数列が\(b_1 = 1, b_2 = 3, b_3 = 5, … \)であるとする。
+</p>
+<p>
+	問題：引数\(n\)に対して、\(a_n \)の値を返す関数anをjavascriptで書け。
+</p>
+<p>
+	<input type="number" id="para" value="" size="3" maxlength="3"/>番目の項の値を計算します。
+	<input type="button" value="計算" onclick="OnClick()"/>
+</p>
+<p id="answer">
+</p>
+</body>
+</html>
+
