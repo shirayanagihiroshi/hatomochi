@@ -19,10 +19,12 @@
 		target.innerHTML += String(an(para));
 		target.innerHTML += "\\)<br>";
 
+console.log(para);
 		//mathjaxによる描画を要求する
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub,target]);
 	}
 //解答例 1
+/*
 	function an (n) {
 		var i, ret;
 
@@ -42,10 +44,22 @@
 	function bn (n) {
 		return ( (2 * n) - 1 );
 	}
+*/
 //解答例 2
 /*
 	function an (n) {
 		return (n * n - (2 * n) + 2);
+	}
+*/
+//解答例 3 M本スタイル
+/*
+	function an (n) {
+		//1は元の数列の初項。これに階差数列の和を加える
+		return ( 1 + sum(1, 2, (n - 1)));
+	}
+	// 初項:a, 公差:d, 項数:n の等差数列の和
+	function sum (a, d, n) {
+		return ( n * ( (2 * a) + ((n - 1) * d) ) ) / 2;
 	}
 */
 	</script>
