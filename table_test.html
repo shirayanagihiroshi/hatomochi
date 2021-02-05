@@ -4,14 +4,18 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="table_test.js"></script>
     <script>
-      $(window).on('ready', table_test_start());
+      $('button').click(function(event) {
+          console.log('クリックされました！');
+      })
+    </script>
+
     </script>
     <title>this is tabel test</title>
   </head>
 
   <body>
     <h1>テーブル操作テスト</h1>
-    <table>
+    <table class="testtable">
       <tr>
         <td>1</td>
         <td>2</td>
@@ -23,5 +27,6 @@
         <td>c</td>
       </tr>
     </table>
+    <!-- <button id="b1">aa</button>-->
   </body>
 </html>
