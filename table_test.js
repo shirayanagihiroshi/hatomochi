@@ -4,9 +4,23 @@ $(function() {
     console.log('now test start');
   }
 
-  $('.testtable').on('click', function (event) {
-    console.log('click!');
-    console.log('git up test');
+  $('td').on('click', function (event) {
+    var temp = $(this).text();
+
+    console.log(temp);
+    //$(this).html('<input class="hoge" type="text" value="' + temp + '">');
+    $(this).html('<input class="hoge" type="text" value="">');
+
+    $('.hoge').focus();
+  });
+
+  $(document).on('blur', '.hoge', function () {
+
+    $('.hoge').parent().html($('.hoge').val());
+
+    console.log($('.hoge').parent());
+
+    console.log("change");
   });
 
   $(window).on('ready', table_test_start());
