@@ -4,25 +4,28 @@ $(function() {
     console.log('now test start');
   }
 
-  $('td').on('click', function (event) {
+  $(window).on('ready', table_test_start());
+
+// 色付きセルがクリックされたらテキストボックスを用意する
+  $('.edi').on('click', function (event) {
     var temp = $(this).text();
 
-    console.log(temp);
-    //$(this).html('<input class="hoge" type="text" value="' + temp + '">');
     $(this).html('<input class="hoge" type="text" value="">');
 
     $('.hoge').focus();
   });
 
+//テキストボックスからフォーカスが外れたら入力されていた値をセルに設定する
   $(document).on('blur', '.hoge', function () {
 
     $('.hoge').parent().html($('.hoge').val());
 
-    console.log($('.hoge').parent());
-
-    console.log("change");
   });
 
-  $(window).on('ready', table_test_start());
+// 解く
+  $('.solv').on('click', function (event) {
+
+    console.log('yes');
+  });
 
 });
