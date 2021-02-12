@@ -24,8 +24,15 @@ $(function() {
 
 // 解く
   $('.solv').on('click', function (event) {
+    var i;
+    var world = $('.sudoku').find('tr');
+//    var elements = $('.sudoku > td:eq(1)').find('tr');var  = world[0].find('td');
 
-    console.log('yes');
+
+    console.log(world[2].children[0].textContent);
+    for (i=1; i<10 ;i++) {
+      world[i].children[5].textContent = 'hoge'+i
+    }
   });
 
 });
