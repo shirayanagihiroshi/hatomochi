@@ -1,14 +1,5 @@
 $(function() {
-  const kouho = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  var i, j,
-  sudoku = new Array(9);
-
-  for (i=0; i<9; i++) {
-    sudoku[i] = new Array(9);
-    for (j=0; j<9; j++) {
-      //sudoku[i][j] = kouho.slice();
-    }
-  }
+  var sudoku = create_suudoku();
 
   $(window).on('ready', table_test_start());
 
@@ -30,19 +21,25 @@ $(function() {
 
 // 解く
   $('.solv').on('click', function (event) {
-    var i,
+    calc_and_set();
+    setTimeout(calc_and_set, 1200);
+  });
+
+  function calc_and_set() {
+    const kouho = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    var i,j,
     // 入力値を全て取得
     world = $('.sudoku').find('tr');
 
     for (i=0; i<9; i++) {
       for (j=0; j<9; j++) {
-        //１桁の整数なら、その結成済の値として保存
+        //１桁の整数なら、それを決定済の値として保存
         if (0 < world[i+1].children[j+1].textContent  && world[i+1].children[j+1].textContent < 10){
           sudoku[i][j] = world[i+1].children[j+1].textContent;
         // そうでなければ、候補のリストを設定
         } else {
           sudoku[i][j] = kouho.slice();
-          // 「候補」属亭を設定
+          // 「候補」属性を設定
           world[i+1].children[j+1].setAttribute('kouho', 't');
         }
       }
@@ -58,10 +55,6 @@ $(function() {
       }
     }
 
-//    sudoku.unshift(5);//リストの先頭に追加
-//    sudoku.push(104);//リストの最後に追加
-//    console.log(sudoku);
-
     for (i=0; i<9; i++) {
       for (j=0; j<9; j++) {
         if (world[i+1].children[j+1].hasAttribute('kouho')){
@@ -75,12 +68,25 @@ $(function() {
         }
       }
     }
-  });
+    //console.log('next timer set');
+    setTimeout(calc_and_set, 1200);
+  }
 
 });
 
 function table_test_start () {
   console.log('now test start');
+}
+
+function create_suudoku(){
+  var i;
+
+  arr = new Array(9);
+
+  for (i=0; i<9; i++) {
+    arr[i] = new Array(9);
+  }
+  return arr;
 }
 
 // セルの数値が決定済のところを頼りに候補のリストから不要なものを削除する。
