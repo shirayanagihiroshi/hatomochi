@@ -6,9 +6,7 @@
 > ここの家の主人は病気です
 >>なんだって
 
-<div style="text-align: right;">
-おれは右によるぜ
-</div>
+<div style="text-align: right;">おれは右によるぜ</div>
 
 ```
 printf "hello world
