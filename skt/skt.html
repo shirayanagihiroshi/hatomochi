@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <title> skt </title>
+
+    <!--スタイルシート-->
+    <link rel="stylesheet" href="css/skt.css">
+    <link rel="stylesheet" href="css/skt.shell.css">
+
+    <!--サードパーティーjavascript-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <!--開発対象javascript-->
+    <script type="text/javascript" src="js/skt.js"></script>
+    <script type="text/javascript" src="js/skt.shell.js"></script>
+    <script>
+      $(function () { skt.initModule( $('#skt') ); });
+    </script>
+  </head>
+
+  <body>
+    <div id='skt'></div>
+  </body>
+</html>
