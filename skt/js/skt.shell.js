@@ -6,11 +6,11 @@ skt.shell = (function () {
   //---モジュールスコープ変数---
   var configMap = {
     main_html : String()
-      + '<skt class="skt-shell-head">'
-        + '<skt class="skt-shell-head-acct"></div>'
+      + '<div class="skt-shell-head">'
+        + '<div class="skt-shell-head-acct"></div>'
       + '</div>'
-      + '<skt class="skt-shell-main">'
-        + '<skt class="skt-shell-main-content"></div>'
+      + '<div class="skt-shell-main">'
+        + '<div class="skt-shell-main-content"></div>'
       + '</div>'
     },
     stateMap = { $container : null },
