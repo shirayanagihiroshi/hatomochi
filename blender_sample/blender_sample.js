@@ -30,7 +30,7 @@ function init() {
 
     // Load GLTF or GLB
     const loader = new THREE.GLTFLoader();
-    const url = 'http://shirayanagihiroshi.github.io/hatomochi/blender_sample/blender_sample.glb';
+    const url = 'https://shirayanagihiroshi.github.io/hatomochi/blender_sample/blender_sample.glb';
     let model = null;
     loader.load(
         url,
