@@ -9,6 +9,9 @@
 	<script src="./blender_sample/lib/OrbitControls.js"></script>
 	<script src="./blender_sample/blender_sample.js"></script>
 	<!--for blender sample end-->
+	<!--for sort start-->
+	<script src="./sort_sample/mergeSort.js"></script>
+	<!--for sort end-->
 	<!--for lifegame start-->
 	<script src="./lifegame_sample/lifegame_sample.js"></script>
 	<!--for lifegame end-->
@@ -71,11 +74,16 @@
 	</pre>
 がjavascriptの命令で、「Consoleにhello worldという文字列を表示せよ」という意味です。</p>
 <p>その他の部分はHTMLという言語で書かれています。HTMLで静的なウェブページを作ることができ、それに加えて、JavaScriptでブラウザ上でさらに色んなことができます。</p>
-<h2>サンプルその1 ライフゲーム</h2>
+<h2>サンプルその1 並び変え(ソート)</h2>
+<p>,で区切って数値を入力しください</p>
+<input type="text" id=sortInput>
+<input type="button" value="sort" onClick="sortStart()">
+<dev id="sortResult"></dev>
+<h2>サンプルその2 ライフゲーム</h2>
 <p>下の空白部分を適当に（たくさん！）クリックした後、click to startをクリックしてください。</p>
 <canvas id="lifegame_canvas" width="450" height="450"></canvas>
 <p onclick="lifegamestart()">click to start</p>
-<h2>サンプルその2 3Dオブジェクトの表示</h2>
+<h2>サンプルその3 3Dオブジェクトの表示</h2>
 <p>パソコン部員はblenderというアプリが得意です。これで作った3Dのモデルを表示します。</p>
 <div id="main_canvas">
     <canvas id="canvas" width="100%" height="100%"></canvas>
