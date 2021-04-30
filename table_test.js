@@ -1,3 +1,4 @@
+var sudokuSolver = (function () {
 $(function() {
   var sudoku = create_suudoku();
 
@@ -163,3 +164,4 @@ function remove_from_list (arr, num) {
     arr.splice(index,1);
   }
 }
+}());
