@@ -1,18 +1,4 @@
-<html>
-<head>
-  <meta charset="utf-8"/>
-</head>
-<body>
-  <p id="sakusei" onclick="prepare()"><ビンゴさくせいましーん。ここをクリックしてね。></p>
-  <p id="gstart" onclick="gamestart()"><ビンゴ大会を始める></p>
-  <p id="nnumber" onclick="nextnumber()"></p>
-  <canvas id="main_canvas" width="500" height="500"></canvas>
-</body>
-
-<script>
-  //カンバスの取得
-  var canvas = document.getElementById('main_canvas');
-  var context = canvas.getContext('2d');
+var bingo = (function () {
   var bingos = new Array(25);
   var bingos_ans_b = new Array(15);
   var bingos_ans_i = new Array(15);
@@ -21,12 +7,20 @@
   var bingos_ans_o = new Array(15);
   var bingo_i,timer_interval;
   var ans_b_i,ans_i_i,ans_n_i,ans_g_i,ans_o_i;
+  var canvas, context;
+  var gamestart, prepare, nextnumber;
 
-  show_frame();
+  window.onload = function (){
+    //ロードが完了してからカンバスの取得
+    canvas = document.getElementById('bingo_canvas');
+    context = canvas.getContext('2d');
+    
+    show_frame();
+  };
 
-  function gamestart() {
+  gamestart = function () {
     //間違ってクリックすると面倒なので、問題作成は消す。
-    var obj = document.getElementById("sakusei");
+    var obj = document.getElementById("bingoSakusei");
     if (obj != null) {
       obj.parentNode.removeChild(obj);
     }
@@ -43,13 +37,13 @@
     ans_g_i = 0;
     ans_o_i = 0;
 
-    obj = document.getElementById("nnumber");
+    obj = document.getElementById("bingoNextNumber");
     obj.innerHTML="数を選ぶよ。ここをクリックしてね。";
 
     context.clearRect(0,0,500,500);
-  }
+  };
 
-  function nextnumber() {
+  nextnumber = function () {
     var i;
     var nextnum;
     var target;
@@ -57,7 +51,7 @@
     if (ans_b_i > 14 && ans_i_i > 14 && ans_n_i > 14 && ans_g_i > 14 && ans_o_i > 14){
       return;
     }
-      
+
     context.clearRect(0,0,500,500);
 
     oncemore:while(1){
@@ -70,7 +64,7 @@
         nextnum = bingos_ans_b[ans_b_i];
         ans_b_i++;
         break;
-  
+
       } else if(target == 1) {
 	      if(ans_i_i > 14){
           continue oncemore;
@@ -124,15 +118,15 @@
     for(i=0;i<ans_o_i;i++){
       context.fillText(bingos_ans_o[i]+",", 10+(22*i), 280);
     }
-  }
+  };
 
-  function prepare() {
+  prepare = function () {
     bingo_i = 0;
     timer_interval = 30;
     make_bingo();
     show_frame();
     show_numbers();
-  }
+  };
 
   //ビンゴの生成
   function make_bingo() {
@@ -196,7 +190,7 @@
 
   function show_numbers() {
     write_number((bingo_i%5),Math.floor(bingo_i/5),bingos[bingo_i]);
-    
+
     bingo_i = bingo_i + 1;
     timer_interval = timer_interval +4;
     if (bingo_i < 25) {
@@ -256,6 +250,9 @@
     }
   }
 
-</script>
-
-</html>
+  return {
+    gamestart  : gamestart,
+    prepare    : prepare,
+    nextnumber : nextnumber
+  };
+}());
