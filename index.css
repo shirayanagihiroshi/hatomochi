@@ -3,18 +3,43 @@
 body {
   font-family: sans-serif;
   color: MidnightBlue;
-  background-color: DarkTurquoise;
+  background-color: #C6FF8E;
 }
 
 h1 {
-  font-size: 21px;
+  font-size: 30px;
+  background-color: pink;
+  text-align: center;
 }
+
 h2 {
   font-size:  18px;
+  color: white;
+  background-color: green;
+  text-align: center;
 }
+
 p {
   margin-top: 0;
   margin-bottom: 0;
+  margin-left: 300px;
+  margin-right: 250px;
 }
 
-.box1{width: 500px; border: solid 3px #000;}
+ul{
+  margin-left: 300px;
+}
+
+.box1{
+  width: 500px;
+  padding-left: 300px;
+/*  padding-left: 330px; */
+}
+
+#lifegame_canvas{
+  background-color: white;
+
+}
+
+
+/* 何かの修正 */
