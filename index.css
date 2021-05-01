@@ -41,5 +41,14 @@ ul{
 
 }
 
+.pink {
+  background-color: #FFCCFF;
+}
 
-/* 何かの修正 */
+.blue {
+  background-color: #99CCFF;
+}
+
+td[kouho] {
+  color: silver;
+}

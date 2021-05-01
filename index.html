@@ -4,17 +4,18 @@
 	<link rel="stylesheet" href="index.css">
 	<title>welcome to PC-BU </title>
 	<!--for blender sample start-->
-	<!--
 	<script src="./blender_sample/lib/three.min.js"></script>
 	<script src="./blender_sample/lib/GLTFLoader.js"></script>
 	<script src="./blender_sample/lib/OrbitControls.js"></script>
 	<script src="./blender_sample/blender_sample.js"></script>
--->
 	<!--for blender sample end-->
 	<!--for sudoku start-->
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script src="./sudoku_sample/sudoku_sample.js"></script>
 	<!--for sudoku end-->
+	<!--for math start-->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_CHTML"></script>
+	<!--for math end-->
 	<!--for sort start-->
 	<script src="./sort_sample/mergeSort.js"></script>
 	<!--for sort end-->
@@ -24,9 +25,6 @@
 	<!--for bingo start-->
 	<script src="./bingo_sample/bingo_sample.js"></script>
 	<!--for bingo end-->
-	<!--for math start-->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_CHTML"></script>
-	<!--for math end-->
 </head>
 <body>
 <div class="box1">
@@ -44,17 +42,17 @@
 <p>ソースコードは英語と数式が混ざったような見た目をしています。これはあくまで、人間が読んだり書いたりするためのもので、ただの文字列です。
 IDE（Integrated Development Environment／統合開発環境）という高級なアプリケーションを使って書くこともありますし、テキストエディタ（文章を編集するためのアプリケーション）を使って書くこともあります。
 いずれにせよ、物理的なキーボードがついているコンピュータを使用するのが一般的です。
-プログラミング言語たちには、それぞれ書き方の約束があり、それを言語仕様といいます。書くにも読むにも言語仕様を知らなければなりません。</p>
-<p>うまいプログラムを書くには、この言語仕様のほかにも
+プログラミング言語たちには、それぞれ書き方の約束があり、それを言語仕様といいます。書くにも読むにも言語仕様を知らなければなりません。
+うまいプログラムを書くには、この言語仕様のほかにも</p>
 	<ul>
 	  <li>コンピュータ内の計算の仕組み</li>
 	  <li>アルゴリズム</li>
 	  <li>ネットワーク</li>
 	  <li>データベース</li>
   </ul>
-	などを知っておくとよいです。
-</p>
-<p>ただ、全部勉強してからプログラミングするぞ！というのは良い方法ではありません。実際にプログラミングしながら、周辺の知識を吸収していくほうがよいでしょう。道は長いです。焦らずいきましょう。
+<p>
+などを知っておくとよいです。
+ただ、全部勉強してからプログラミングするぞ！というのは良い方法ではありません。実際にプログラミングしながら、周辺の知識を吸収していくほうがよいでしょう。道は長いです。焦らずいきましょう。
 必要な知識は膨大なので、この文書ですべてを説明することできません。この文書はとりあえず、入り口へ案内する程度のものです。
 世の中にはプログラミングについて具体的な説明をしているサイトが沢山あります。Google先生に聞いてみましょう。例えば、ドットインストールではJavaScriptについて、動画で説明が見られます。書籍を参考にするのもよいです。</p>
 <h2>何から始めればいい？</h2>
@@ -63,25 +61,29 @@ IDE（Integrated Development Environment／統合開発環境）という高級�
 <p>そんな貴方にはパソコン部ではjavascriptをおすすめします。
 最初は“hello world“という文字列を画面に表示するのが習わしですので、やってみましょう。
 テキストエディタを開いて、以下を打ち込みます。
-<pre>
-  &lt;html&gt;
-    &lt;head&gt;
-      &lt;script&gt;
-        console.log('hello world');
-      &lt;/script&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-      プログラミングは楽しいです。
-    &lt;/body&gt;
-  &lt;/html&gt;
-</pre>
-そして、sample.htmlと名前を付けて保存してください。
+<p>
+  <pre>
+	  &lt;html&gt;
+	    &lt;head&gt;
+	      &lt;script&gt;
+	        console.log('hello world');
+	      &lt;/script&gt;
+	    &lt;/head&gt;
+	    &lt;body&gt;
+	      プログラミングは楽しいです。
+	    &lt;/body&gt;
+	  &lt;/html&gt;
+  </pre>
+</p>
+<p>そして、sample.htmlと名前を付けて保存してください。
 このファイルをgoogle chromeで開き、12キーを押下してConsoleというタブをクリックすると、hello worldという文字列が表示されているはずです。
-この例では4行目の
-<pre>
-        console.log('hello world');
-</pre>
-がjavascriptの命令で、「Consoleにhello worldという文字列を表示せよ」という意味です。その他の部分はHTMLという言語で書かれています。HTMLで静的なウェブページを作ることができ、それに加えて、JavaScriptでブラウザ上でさらに色んなことができます。</p>
+この例では4行目の</p>
+<p>
+  <pre>
+	        console.log('hello world');
+  </pre>
+</p>
+<p>がjavascriptの命令で、「Consoleにhello worldという文字列を表示せよ」という意味です。その他の部分はHTMLという言語で書かれています。HTMLで静的なウェブページを作ることができ、それに加えて、JavaScriptでブラウザ上でさらに色んなことができます。</p>
 <h2>javascriptって？</h2>
 <p>プログラミング言語の一つです。
 ブラウザがjavascriptで書かれた命令を実行することで、静的なHTMLには実現できないことができます。最近はnode.jsなどブラウザ以外でも動くみたいです。
@@ -89,20 +91,22 @@ IDE（Integrated Development Environment／統合開発環境）という高級�
 プロトタイプベースのオブジェクト指向言語で、C++等のクラスベースのオブジェクト指向言語とはその点が違います。
 javascriptについて細かく説明してくれているサイトは沢山あるので、詳細はそちらを見てください。</p>
 <h2>サンプルその1 オブジェクトとプリミティブ</h2>
-<p>オブジェクトを代入するとコピーはされず、オブジェクトへの参照が得られます。
-<pre>
-  var obj1 = {
-        aa : 1,
-        bb : 2,
-        cc : 3
-      },
-      obj2;
+<p>オブジェクトを代入するとコピーはされず、オブジェクトへの参照が得られます。</p>
+<p>
+	<pre>
+	  var obj1 = {
+	        aa : 1,
+	        bb : 2,
+	        cc : 3
+	      },
+	      obj2;
 
-      obj2 = obj1;
-      obj2.aa = 10;
-      console.log(obj1.aa);
-</pre>
-上でconsoleに表示されるのは10です。</p>
+	      obj2 = obj1;
+	      obj2.aa = 10;
+	      console.log(obj1.aa);
+  </pre>
+</p>
+<p>上でconsoleに表示されるのは10です。</p>
 <h2>サンプルその2 数式の表示</h2>
 <p>2項定理ってこんなんだったなぁ<br>
 \( (a+b)^n={}_n \mathrm{C} _0 a^nb^0
@@ -114,26 +118,36 @@ javascriptについて細かく説明してくれているサイトは沢山あ�
 </p>
 <h2>サンプルその3 並び変え(ソート)</h2>
 <p>,で区切って数値を入力しください</p>
-<input type="text" id=sortInput>
-<input type="button" value="sort" onClick="sortStart()">
+<p>
+	<input type="text" id=sortInput>
+  <input type="button" value="sort" onClick="sortStart()">
+</p>
 <dev id="sortResult"></dev>
 <h2>サンプルその4 ライフゲーム</h2>
 <p>下の空白部分を適当に（たくさん！）クリックした後、click to startをクリックしてください。</p>
-<canvas id="lifegame_canvas" width="450" height="450"></canvas>
-<p onclick="lifegamestart()">click to start</p>
+<p>
+	<canvas id="lifegame_canvas" width="450" height="450"></canvas>
+  <p onclick="lifegamestart()">click to start</p>
+</p>
 <h2>サンプルその5 ビンゴマシーン</h2>
 <p id="bingoSakusei" onclick="bingo.prepare()"><ビンゴ作成マシーン。ここをクリックしてね。></p>
 <p id="bingoGameStart" onclick="bingo.gamestart()"><ビンゴ大会を始める></p>
 <p id="bingoNextNumber" onclick="bingo.nextnumber()"></p>
-<canvas id="bingo_canvas" width="500" height="500"></canvas>
+<p>
+	<canvas id="bingo_canvas" width="500" height="500"></canvas>
+</p>
 <h2>サンプルその6 簡易数独ソルバ</h2>
-<table class="sudoku" border=1></table>
-<button class="sudoku_solv">解く</button>
-<h2>サンプルその6 3Dオブジェクトの表示</h2>
+<p>
+	<table class="sudoku" border=1></table>
+	<button class="sudoku_solv">解く</button>
+</p>
+<h2>サンプルその7 3Dオブジェクトの表示</h2>
 <p>パソコン部員はblenderというアプリが得意です。これで作った3Dのモデルを表示します。</p>
-<div id="main_canvas">
+<p>
+	<div id="main_canvas">
     <canvas id="canvas" width="100%" height="100%"></canvas>
-</div>
+  </div>
+</p>
 <p>javascriptのライブラリThree.jsを使っています。</p>
 <h2>何から作ろう？</h2>
 <p>先輩部員、顧問と相談しましょう。</p>
@@ -145,7 +159,9 @@ Gitにおいてソースコードを保管する場所を『リポジトリ』�
 GitHubはこのGitを利用したサービスで、リモートリポジトリをweb上に作って、webブラウザ等からアクセスできるようにしたものです。
 GitHub上の自分のリポジトリに、自分で作ったソースコード（カッコイイやつ）をcommitして、こんなの作れますよ！って自慢できるようになってください。
 GitおよびGitHubの使い方については、きっと実際やってみないと感覚が掴めないでしょう。使って練習してください。ブランチという概念があり、これも使うと便利です。</p>
-<img src="images/about_github.png">
+<p>
+	<img src="images/about_github.png">
+</p>
 <p>上記はリモートリポジトリにソースを保存するイメージ。</p>
 <p><strong>※IDやパスワード的なものをソースコードを含めないこと！（不正利用されるとお金を請求されたりするよ！）</strong></p>
 <p>ちなみにgithubに存在する文書をwebページとして公開する機能があり、今見てるこの文書もそうして公開しています。</p>
@@ -153,6 +169,6 @@ GitおよびGitHubの使い方については、きっと実際やってみな�
 
 <h1>本ページを書いた人</h1>
 <p>shirayanagi hiroshi</p>
-<p>2021/4/29</p>
+<p>2021/05/01</p>
 </body>
 </html>
