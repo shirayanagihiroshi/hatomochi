@@ -1,7 +1,7 @@
 <html>
 <head>
 	<meta http-equiv="content-type" charset="utf-8">
-	<link rel="stylesheet" href="index.css">
+	<link rel="stylesheet" href="css/index.css">
 	<title>welcome to PC-BU </title>
 	<!--for blender sample start-->
 	<script src="./blender_sample/lib/three.min.js"></script>
@@ -15,6 +15,11 @@
 	<!--for sudoku end-->
 	<!--for math start-->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_CHTML"></script>
+	<!--for math end-->
+	<!--for show source code start-->
+	<script type="text/javascript" src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+	<link rel="stylesheet" href="css/sunburst.css">
+	<!--for show source code end-->
 	<!--for math end-->
 	<!--for sort start-->
 	<script src="./sort_sample/mergeSort.js"></script>
@@ -61,8 +66,7 @@ IDE（Integrated Development Environment／統合開発環境）という高級�
 <p>そんな貴方にはパソコン部ではjavascriptをおすすめします。
 最初は“hello world“という文字列を画面に表示するのが習わしですので、やってみましょう。
 テキストエディタを開いて、以下を打ち込みます。
-<p>
-  <pre>
+  <pre class="prettyprint">
 	  &lt;html&gt;
 	    &lt;head&gt;
 	      &lt;script&gt;
@@ -79,7 +83,7 @@ IDE（Integrated Development Environment／統合開発環境）という高級�
 このファイルをgoogle chromeで開き、12キーを押下してConsoleというタブをクリックすると、hello worldという文字列が表示されているはずです。
 この例では4行目の</p>
 <p>
-  <pre>
+  <pre class="prettyprint">
 	        console.log('hello world');
   </pre>
 </p>
@@ -93,7 +97,7 @@ javascriptについて細かく説明してくれているサイトは沢山あ�
 <h2>サンプルその1 オブジェクトとプリミティブ</h2>
 <p>オブジェクトを代入するとコピーはされず、オブジェクトへの参照が得られます。</p>
 <p>
-	<pre>
+	<pre class="prettyprint">
 	  var obj1 = {
 	        aa : 1,
 	        bb : 2,
