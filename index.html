@@ -4,11 +4,17 @@
 	<link rel="stylesheet" href="index.css">
 	<title>welcome to PC-BU </title>
 	<!--for blender sample start-->
+	<!--
 	<script src="./blender_sample/lib/three.min.js"></script>
 	<script src="./blender_sample/lib/GLTFLoader.js"></script>
 	<script src="./blender_sample/lib/OrbitControls.js"></script>
 	<script src="./blender_sample/blender_sample.js"></script>
+-->
 	<!--for blender sample end-->
+	<!--for sudoku start-->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="./sudoku_sample/sudoku_sample.js"></script>
+	<!--for sudoku end-->
 	<!--for sort start-->
 	<script src="./sort_sample/mergeSort.js"></script>
 	<!--for sort end-->
@@ -120,6 +126,9 @@ javascriptについて細かく説明してくれているサイトは沢山あ�
 <p id="bingoGameStart" onclick="bingo.gamestart()"><ビンゴ大会を始める></p>
 <p id="bingoNextNumber" onclick="bingo.nextnumber()"></p>
 <canvas id="bingo_canvas" width="500" height="500"></canvas>
+<h2>サンプルその6 簡易数独ソルバ</h2>
+<table class="sudoku" border=1></table>
+<button class="sudoku_solv">解く</button>
 <h2>サンプルその6 3Dオブジェクトの表示</h2>
 <p>パソコン部員はblenderというアプリが得意です。これで作った3Dのモデルを表示します。</p>
 <div id="main_canvas">
